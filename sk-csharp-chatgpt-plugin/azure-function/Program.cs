@@ -36,7 +36,8 @@ var host = new HostBuilder()
 
                 return kernel;
             })
-            .AddScoped<IAIPluginRunner, AIPluginRunner>();
+            .AddScoped<IAIPluginRunner, AIPluginRunner>()
+            .AddScoped<StepwisePlugin>();
     })
     .Build();
 

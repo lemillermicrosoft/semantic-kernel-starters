@@ -12,10 +12,11 @@ public class AIPluginJson
     [Function("GetAIPluginJson")]
     public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = ".well-known/ai-plugin.json")] HttpRequestData req)
     {
-        var currentDomain = $"{req.Url.Scheme}://{req.Url.Host}:{req.Url.Port}";
+        var currentDomain = $"{req.Url.Scheme}s://{req.Url.Host}";
 
         HttpResponseData response = req.CreateResponse(HttpStatusCode.OK);
         response.Headers.Add("Content-Type", "application/json");
+        response.Headers.Add("Access-Control-Allow-Origin", "https://www.bing.com");
 
         var appSettings = AppSettings.LoadSettings();
 
@@ -26,6 +27,7 @@ public class AIPluginJson
         json = json.Replace("{url}", currentDomain, StringComparison.OrdinalIgnoreCase);
 
         response.WriteString(json);
+
 
         return response;
     }
